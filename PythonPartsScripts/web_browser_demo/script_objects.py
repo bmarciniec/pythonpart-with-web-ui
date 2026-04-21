@@ -23,6 +23,7 @@ from ScriptObjectInteractors.OnCancelFunctionResult import OnCancelFunctionResul
 from ScriptObjectInteractors.PointInteractor import PointInteractor, PointInteractorResult
 
 from .dialog_wrapper import WpfDialogWrapper
+from .utils import create_text_ele
 
 
 class WpfDialogScriptObject(BaseScriptObject):
@@ -136,4 +137,4 @@ class WpfDialogScriptObject(BaseScriptObject):
             data: parsed JSON payload sent from the web app via
                   ``bridge.SendToHost(JSON.stringify(payload))``.
         """
-        print("Received from web:", data)
+        create_text_ele("Hello, World!", self.coord_input)

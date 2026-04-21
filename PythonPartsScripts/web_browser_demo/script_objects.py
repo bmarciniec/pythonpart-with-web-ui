@@ -16,6 +16,8 @@ Typical flow
 5. User presses ESC; ``on_cancel_function`` disposes the dialog and ends
    the session.
 """
+import NemAll_Python_BaseElements as AllplanBaseEle
+
 from BaseScriptObject import BaseScriptObject, BaseScriptObjectData
 from BuildingElement import BuildingElement
 from CreateElementResult import CreateElementResult
@@ -51,8 +53,9 @@ class WpfDialogScriptObject(BaseScriptObject):
         super().__init__(script_object_data)
 
         self.build_ele = build_ele
-        self.wpf_dialog_wrapper = WpfDialogWrapper()
+        self.wpf_dialog_wrapper      = WpfDialogWrapper()
         self.point_interactor_result = PointInteractorResult()
+        self.zoom_service            = AllplanBaseEle.ZoomService()
 
         # register the web message handler
         self.wpf_dialog_wrapper.on_message(self._web_message_handler)
@@ -137,4 +140,12 @@ class WpfDialogScriptObject(BaseScriptObject):
             data: parsed JSON payload sent from the web app via
                   ``bridge.SendToHost(JSON.stringify(payload))``.
         """
-        create_text_ele("Hello, World!", self.coord_input)
+        print("Received data from web app:", data)
+
+        created_text = create_text_ele("Hello, World!", self.coord_input)
+
+        self.zoom_service.ZoomToElementWithFactor(
+            created_text[0],
+            self.coord_input.GetViewWorldProjection(),
+            factor   = 1.0,
+            bZoomAll = False)

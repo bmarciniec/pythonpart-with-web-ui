@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>HelloWorldWPF</AssemblyName>
+    <RootNamespace>HelloWorldWPF</RootNamespace>
+    <ProjectGuid>{F1E3A8B2-C4D5-4E6F-7A8B-9C0D1E2F3A4B}</ProjectGuid>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <!-- PrgPath points to the host application's Prg folder containing WebView2 DLLs.
+         Override at build time: dotnet build /p:PrgPath="C:\your\path" -->
+    <PrgPath Condition="'$(PrgPath)' == ''">C:\Program Files\Allplan\Allplan 2026\Prg</PrgPath>
+  </PropertyGroup>
+
+  <!-- Reference WebView2 DLLs from the host app's Prg folder.
+       Private=false ensures they are NOT copied to the build output. -->
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.WebView2.Wpf">
+      <HintPath>$(PrgPath)\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core">
+      <HintPath>$(PrgPath)\Microsoft.Web.WebView2.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
